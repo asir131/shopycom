@@ -1,34 +1,38 @@
 import  { useState } from 'react';
-
+import axios from 'axios';
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const API_URL = 'http://localhost:5173'; // Update this with your backend URL
+  // const API_URL = 'http://localhost:5173'; // Update this with your backend URL
 
 const handleSignup = async (event) => {
   event.preventDefault();
 
-  try {
-    const response = await fetch(`${API_URL}/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password, confirmPassword }),
-    });
+  axios.post('http://localhost:5173/signup',{email,password,confirmPassword})
+  .then(result => console.log(result))
+  .catch(err=>console.log(err))
 
-    if (!response.ok) {
-      throw new Error('Signup failed');
-    }
+  // try {
+  //   const response = await fetch(`${API_URL}/signup`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ email, password, confirmPassword }),
+  //   });
 
-    const data = await response.json();
-    alert(data.message); // Display success or error message
-  } catch (error) {
-    console.error('Error signing up:', error);
-    alert('An error occurred while signing up');
-  }
+  //   if (!response.ok) {
+  //     throw new Error('Signup failed');
+  //   }
+
+  //   const data = await response.json();
+  //   alert(data.message); // Display success or error message
+  // } catch (error) {
+  //   console.error('Error signing up:', error);
+  //   alert('An error occurred while signing up');
+  // }
 };
 
   
