@@ -8,19 +8,21 @@ import Men from './pages/Men'
 import Women from './pages/Women'
 import Kids from './pages/Kids'
 import Footer from './components/Footer'
+
 function App() {
   
+ 
 
   return (
     <>
     <BrowserRouter>
        
-       <Navbar/>
+       <Navbar />
        
        
        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/login' element={<Login/>}/>
+          <Route path='/' element={<Home />}/>
+          <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<SignUp/>}/>
           <Route path='/men' element={<Men/>}/>
           <Route path='/women' element={<Women/>}/>

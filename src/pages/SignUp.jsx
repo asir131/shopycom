@@ -1,29 +1,16 @@
 import  { useState } from 'react';
-// import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const navigate = useNavigate();
    const API_URL = 'http://localhost:8080'; // Update this with your backend URL
 
 const handleSignup = async (event) => {
   event.preventDefault();
-  // console.log({email,password,confirmPassword});
-  // await axios.post('http://localhost:8080/signup',JSON.stringify({email,password,confirmPassword}))
-  // .then(result => console.log(result))
-  // .catch(err=>console.log(err))
-
   
-  
-  // const res = await axios({
-  //   method: 'POST',
-  //   baseURL: 'http://localhost:5173/signup',
-  //   url: '/signup',
-  //   data: data
-  // });
-  
-  // console.log(res.data);
 
   try {
     const bodyData = {
@@ -46,11 +33,15 @@ const handleSignup = async (event) => {
    
     const data = await response.json();
     
-    alert(data.message); // Display success or error message
+    alert(data.message || data.error);
+    if(data.message =='Sign up successful') {
+      navigate('/login');
+    } // Display success or error message
   } catch (error) {
     console.error('Error signing up:', error);
-    alert('An error occurred while signing up');
+    alert(error);
   }
+  
   setConfirmPassword('');
   setPassword('');
   setEmail('');
