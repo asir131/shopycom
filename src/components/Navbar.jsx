@@ -7,7 +7,7 @@ import { IoWoman } from "react-icons/io5";
 import { useState } from "react";
 import { GrCart } from "react-icons/gr";
 import { Link } from 'react-router-dom';
-import  { useContext } from 'react';
+import  { useContext ,useEffect} from 'react';
 import { AuthContext } from "../Context/LoginContext";
 
 
@@ -15,9 +15,15 @@ import { AuthContext } from "../Context/LoginContext";
 const Navbar = () => {
   
   const { isLoggedIn,setIsLoggedIn } = useContext(AuthContext);
-   
+   const [cart,setCart] = useState("hidden")
   // const navigate = useNavigate();
-
+  useEffect(() => {
+    if (isLoggedIn) {
+      setCart("");
+    } else {
+      setCart("hidden");
+    }
+  }, [isLoggedIn]);
   const [bar,setBar]=useState(false)
 
   const toggleBar=() => {
@@ -65,9 +71,12 @@ const Navbar = () => {
         Log In
        </button></Link>
       }
-            <button className="cartt bg-slate-900 rounded-md px-4 py-2 text-white font-bold flex items-center gap-2">
-              <GrCart size={32}/> <h3>Cart</h3>
-            </button>
+           <Link to='/cart'><div className={`${cart}`}>
+           <button className={`bg-slate-900 rounded-md px-4 py-2 text-white font-bold  items-center gap-2 flex`}>
+  <GrCart size={32}/> <h3>Cart</h3>
+</button>
+           </div></Link>
+
       </div>
       
     </div>

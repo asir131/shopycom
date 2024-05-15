@@ -1,10 +1,12 @@
 import { GrCart } from "react-icons/gr";
-
-import allProducts from "../assets/all_products";
+import  { useContext } from 'react';
+import { AuthContext } from '../Context/LoginContext';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/actions/cart';
 const Men = () => {
-    
-    
-    const men = allProducts.filter(product => product.category === 'men')
+  const dispatch = useDispatch();
+  const {  all_products } = useContext(AuthContext);
+    const men = all_products.filter(product => product.category === 'men')
     
     
   return (
@@ -22,8 +24,13 @@ const Men = () => {
          <p className='text-orange-500 px-6 py-4 font-bold'>New Price - {item.new_price}$</p>
          <p className='text-slate-700 px-6 py-4 font-bold'>Old Price - {item.old_price}$</p>
          </div>
-         <button className="cartt ml-6 mb-4 md:ml-6 md:mb-6 bg-slate-900 rounded-md px-4 py-2 text-white font-bold flex items-center gap-2">
-              <GrCart size={32}/> <h3>Cart</h3>
+         <button onClick={() =>
+						dispatch(
+							
+							addToCart(item)
+							)
+					} className="cartt ml-6 mb-4 md:ml-6 md:mb-6 bg-slate-900 rounded-md px-4 py-2 text-white font-bold flex items-center gap-2">
+              <GrCart size={32}/> <h3>Add to Cart</h3>
             </button>
          
          
