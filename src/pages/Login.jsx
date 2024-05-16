@@ -5,7 +5,7 @@ import { AuthContext } from '../Context/LoginContext';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {  setIsLoggedIn } = useContext(AuthContext);
+  const {  setIsLoggedIn,setAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogin = async (e) => {
     const API_URL = 'http://localhost:8080';
@@ -36,6 +36,12 @@ const Login = () => {
     alert(data.message || data.error);
     if(data.message =='Login successful') {
       setIsLoggedIn(true);
+      navigate('/');
+      
+      
+    }
+    else if(data.message =='Login admin') {
+      setAdmin(true);
       navigate('/');
       
       

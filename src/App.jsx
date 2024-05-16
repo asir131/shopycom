@@ -9,13 +9,14 @@ import Women from './pages/Women'
 import Kids from './pages/Kids'
 import Footer from './components/Footer'
 import Cart from './pages/Cart'
+import AddProduct from './pages/AddProduct'
 
 function App() {
   
  
 
   return (
-    <>
+    <div className='overflow-hidden'>
     <BrowserRouter>
        
        <Navbar />
@@ -29,6 +30,7 @@ function App() {
           <Route path='/women' element={<Women/>}/>
           <Route path='/kids' element={<Kids/>}/>
           <Route path='/cart' element={<Cart/>}/>
+          <Route path='/addProduct' element={<AddProduct/>}/>
       
         </Routes>
         <Footer />
@@ -39,7 +41,7 @@ function App() {
     
        
 
-    </>
+    </div>
   )
 }
 

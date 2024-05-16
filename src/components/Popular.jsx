@@ -1,9 +1,12 @@
 
 import popular from '../assets/popular';
+import  { useContext } from 'react';
+import { AuthContext } from '../Context/LoginContext';
 import { GrCart } from "react-icons/gr";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/actions/cart';
 const Popular = () => {
+  const {  isLoggedIn } = useContext(AuthContext);
   const dispatch = useDispatch();
   return (
     <div>
@@ -21,10 +24,12 @@ const Popular = () => {
          <p className='text-slate-700 px-6 py-4 font-bold'>Old Price - {item.old_price}$</p>
          </div>
          <button onClick={() =>
-						dispatch(
+						{
+              isLoggedIn && dispatch(
 							
-							addToCart(item)
-							)} className="cartt ml-6 mb-4 md:ml-6 md:mb-6 bg-slate-900 rounded-md px-4 py-2 text-white font-bold flex items-center gap-2">
+                addToCart(item)
+                )
+            }} className="cartt ml-6 mb-4 md:ml-6 md:mb-6 bg-slate-900 rounded-md px-4 py-2 text-white font-bold flex items-center gap-2">
               <GrCart size={32}/> <h3>Add to Cart</h3>
             </button>
          

@@ -6,7 +6,7 @@ import { addToCart } from '../store/actions/cart';
 
 const Kids = () => {
   const dispatch = useDispatch();
-  const {  all_products } = useContext(AuthContext);
+  const {  all_products,isLoggedIn } = useContext(AuthContext);
     const kids = all_products.filter(product => product.category === 'kid')
   return (
     <div className="justify-items-center items-center px-10">
@@ -24,10 +24,12 @@ const Kids = () => {
          <p className='text-slate-700 px-6 py-4 font-bold'>Old Price - {item.old_price}$</p>
          </div>
          <button onClick={() =>
-						dispatch(
+						{
+              isLoggedIn && dispatch(
 							
-							addToCart(item)
-							)
+                addToCart(item)
+                )
+            }
 					} className="cartt ml-6 mb-4 md:ml-6 md:mb-6 bg-slate-900 rounded-md px-4 py-2 text-white font-bold flex items-center gap-2">
               <GrCart size={32}/> <h3>Add to Cart</h3>
             </button>

@@ -14,7 +14,7 @@ import { AuthContext } from "../Context/LoginContext";
 
 const Navbar = () => {
   
-  const { isLoggedIn,setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn,setIsLoggedIn,admin,setAdmin } = useContext(AuthContext);
    const [cart,setCart] = useState("hidden")
   // const navigate = useNavigate();
   useEffect(() => {
@@ -31,6 +31,7 @@ const Navbar = () => {
   }
   const logoutHandler = () => {
     setIsLoggedIn(false)
+    setAdmin(false)
   }
   
 
@@ -64,18 +65,31 @@ const Navbar = () => {
             
         </div>   
       </div>
-      {
-        isLoggedIn?<Link to='/'><button onClick={logoutHandler}   className="bg-slate-900 text-white font-bold rounded-md px-4 py-2">
-        Log out
-       </button></Link> :<Link to='/login'><button   className="bg-slate-900 text-white font-bold rounded-md px-4 py-2">
-        Log In
-       </button></Link>
-      }
+      {isLoggedIn || admin ? (
+        <Link to='/'>
+          <button onClick={logoutHandler} className="bg-slate-900 text-white font-bold rounded-md px-4 py-2">
+            Log out
+          </button>
+        </Link>
+      ) : (
+        <Link to='/login'>
+          <button className="bg-slate-900 text-white font-bold rounded-md px-4 py-2">
+            Log In
+          </button>
+        </Link>
+      )}
            <Link to='/cart'><div className={`${cart}`}>
            <button className={`bg-slate-900 rounded-md px-4 py-2 text-white font-bold  items-center gap-2 flex`}>
   <GrCart size={32}/> <h3>Cart</h3>
 </button>
            </div></Link>
+           {
+            admin && <Link to='/addProduct'><div >
+            <button className={`bg-slate-900 rounded-md px-4 py-2 text-white font-bold  items-center gap-2 flex`}>
+   <GrCart size={32}/> <h3>Add Product</h3>
+ </button>
+            </div></Link>
+           }
 
       </div>
       

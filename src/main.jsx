@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AuthProvider>
     {/* <ShopContextProvider> */}
       
-        <App />
+        <App/>
       
     {/* </ShopContextProvider> */}
     </AuthProvider>
