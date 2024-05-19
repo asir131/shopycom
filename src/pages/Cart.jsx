@@ -8,7 +8,7 @@ const Cart = () => {
     let totalAmount=0;
     cart.forEach((item) =>totalAmount=Number(totalAmount)+Number(item.quantity)*Number(item.new_price));
         
-    console.log(totalAmount);
+    
   return (
     <div>
       <div className="md:py-20 overflow-hidden -mb-16 bg-black text-center md:px-20">

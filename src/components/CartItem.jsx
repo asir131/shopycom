@@ -16,6 +16,7 @@ const CartItem = ({ cartItem }) => {
 			<tr className="grid md:grid-cols-5  items-center -mb-56">
 			<td>
 					<img  src={cartItem.image} alt="" className="product-img w-48 rounded-md" />
+
 				
 			</td>
 			<td className="w-56">

@@ -62,7 +62,7 @@ const Login = () => {
         <form onSubmit={handleLogin} action="" className="grid grid-cols-1 justify-items-center mt-10    h-60">
 
             <input className="border-2 h-16 rounded-md px-6" type="text" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input className="border-2 h-16 rounded-md px-6" type="text" placeholder="Enter your Password" value={password} onChange={(e) => setPassword(e.target.value)}  />
+            <input className="border-2 h-16 rounded-md px-6" type="password" placeholder="Enter your Password" value={password} onChange={(e) => setPassword(e.target.value)}  />
 
             <button type="submit" className="cartt mr-44 bg-slate-900 rounded-md px-4 py-2 text-white font-bold flex items-center gap-2">Submit</button>
 
