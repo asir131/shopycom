@@ -1,12 +1,44 @@
-
+import  { useContext, useEffect,useState } from 'react';
 import CartItem from '../components/CartItem';
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from '../store/actions/cart';
+import { AuthContext } from '../Context/LoginContext'
 const Cart = () => {
+	const {  mail} = useContext(AuthContext);
     const cart =useSelector((storeState) => storeState.cart);
+	const [cartProducts, setCartProducts] = useState([]);
+	
     const dispatch =useDispatch();
     let totalAmount=0;
-    cart.forEach((item) =>totalAmount=Number(totalAmount)+Number(item.quantity)*Number(item.new_price));
+	useEffect(() => {
+	const fetchProducts = async () => {
+		const API_URL = 'http://localhost:8080';
+		try {
+		const response = await fetch(`${API_URL}/cart`, {
+			method: 'GET',
+			headers: {
+			'Content-Type': 'application/json',
+      },
+			});
+		
+			if (!response.ok) { 
+                throw new Error('Network response was not ok');
+			}
+		
+			const data = await response.json();
+			setCartProducts(data);
+  } catch (error) {
+			console.log(error);
+			console.error('There was a problem with the fetch operation:', error);
+  } 
+  
+};
+		
+	
+		fetchProducts();
+ }, []);
+ let cartItems = cartProducts.filter((item) => item.mail===mail);
+ cartItems.forEach((item) =>totalAmount=Number(totalAmount)+Number(item.quantity)*Number(item.new_price));
         
     
   return (
@@ -18,17 +50,10 @@ const Cart = () => {
 				<div className="product-table-container">
 					<table>
 						<thead>
-							{/* <tr className='grid grid-cols-6 gap-64'>
-								<th>Image</th>
-								<th>Product Title</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>SubTotal</th>
-								<th>Action</th>
-							</tr> */}
 						</thead>
 						<tbody>
-							{cart.map((cartItem,i) => (
+							{cartItems.map((cartItem,i) => (
+								
 								<CartItem key={i} cartItem={cartItem} />
 							))}
 						</tbody>

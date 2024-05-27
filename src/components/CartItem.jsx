@@ -8,11 +8,12 @@ const CartItem = ({ cartItem }) => {
 	const cart =useSelector((storeState) => storeState.cart);
     
     let totalAmount=0;
-    cart.forEach((item) =>totalAmount+=item.quantity*item.price);
-	const [itemQuantity, setItemQuantity] = useState(cartItem.quantity);
+    cart.forEach((item) =>totalAmount+=Number(item.quantity)*Number(item.new_price));
+	const [itemQuantity, setItemQuantity] = useState(Number(cartItem.quantity));
 	const dispatch = useDispatch();
 	return (
 		<div>
+			
 			<tr className="grid md:grid-cols-5  items-center -mb-56">
 			<td>
 					<img  src={cartItem.image} alt="" className="product-img w-48 rounded-md" />

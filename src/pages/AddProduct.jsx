@@ -2,7 +2,7 @@ import  { useState,useEffect,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/LoginContext'
 const AddProduct = () => {
-  const {  all_products } = useContext(AuthContext);
+  const {  all_products} = useContext(AuthContext);
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [image, setimage] = useState('');
@@ -11,7 +11,7 @@ const AddProduct = () => {
   const [old_price, setOld_price] = useState('');
   const navigate = useNavigate();
   
-  let id = all_products.length+1;
+  let id =Math.floor((Math.random() * 10000) + 1) ;
   
   useEffect(() => {
     if (image) {
@@ -46,7 +46,7 @@ const AddProduct = () => {
       }
    
       // Ensure these variables are defined and populated appropriately
-      
+      let quantity=1;
       const API_URL = 'http://localhost:8080'; // Update this with your backend URL
       const bodyData = {
         id,
@@ -54,7 +54,8 @@ const AddProduct = () => {
         category,
         image: uploadResult.data.display_url,
         new_price,
-        old_price
+        old_price,
+        quantity
       };
      console.log(JSON.stringify(bodyData));
       const productResponse = await fetch(`${API_URL}/addProduct`, {

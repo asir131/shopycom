@@ -5,56 +5,48 @@ import { AuthContext } from '../Context/LoginContext';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {  setIsLoggedIn,setAdmin } = useContext(AuthContext);
+  const {  setIsLoggedIn,setAdmin,setIsAuthenticated,setMail,mail } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogin = async (e) => {
-    const API_URL = 'http://localhost:8080';
     e.preventDefault();
+    const API_URL = 'http://localhost:8080';
   
-
-  try {
-    const bodyData = {
-      email,
-      password
-      
-    };
-    
-    const response = await fetch(`${API_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify( bodyData ),
-    });
-
-    if (!response.ok) {
-      throw new Error('Login failed');
+    try {
+      setMail(email)
+      const bodyData = {
+        email,
+        password
+      };
+  
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bodyData),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('authToken', data.token);  // Save token to local storage
+        setIsAuthenticated(true);
+        if (data.message === 'Login successful') {
+          setIsLoggedIn(true);
+        } else if (data.message === 'Login admin') {
+          setAdmin(true);
+        }
+        navigate('/');
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Error Login:', error);
+      alert(error.message);
     }
-   
-    const data = await response.json();
-    
-    alert(data.message || data.error);
-    if(data.message =='Login successful') {
-      setIsLoggedIn(true);
-      navigate('/');
-      
-      
-    }
-    else if(data.message =='Login admin') {
-      setAdmin(true);
-      navigate('/');
-      
-      
-    } // Display success or error message
-  } catch (error) {
-    console.error('Error Login:', error);
-    alert(error);
   }
   
-  
-  
-  }
-
+console.log(mail);
     return (
       <div className="text-black mt-20 text-center  justify-items-center">
       

@@ -14,7 +14,7 @@ import { AuthContext } from "../Context/LoginContext";
 
 const Navbar = () => {
   
-  const { isLoggedIn,setIsLoggedIn,admin,setAdmin } = useContext(AuthContext);
+  const { isLoggedIn,setIsLoggedIn,admin,setAdmin,setIsAuthenticated } = useContext(AuthContext);
    const [cart,setCart] = useState("hidden")
   // const navigate = useNavigate();
   useEffect(() => {
@@ -30,6 +30,8 @@ const Navbar = () => {
      setBar(!bar)
   }
   const logoutHandler = () => {
+    localStorage.removeItem('authToken');
+  setIsAuthenticated(false);
     setIsLoggedIn(false)
     setAdmin(false)
   }
