@@ -8,7 +8,7 @@ const Cart = () => {
     const cart =useSelector((storeState) => storeState.cart);
 	const [cartProducts, setCartProducts] = useState([]);
 	
-    const dispatch =useDispatch();
+    
     let totalAmount=0;
 	useEffect(() => {
 	const fetchProducts = async () => {
@@ -40,6 +40,67 @@ const Cart = () => {
  let cartItems = cartProducts.filter((item) => item.mail===mail);
  cartItems.forEach((item) =>totalAmount=Number(totalAmount)+Number(item.quantity)*Number(item.new_price));
         
+
+ const clearCart = async (e) => {
+
+	e.preventDefault;
+// getting all from carts
+
+
+try {
+  const response = await fetch(`http://localhost:8080/cart`, {
+	method: 'DELETE',
+	headers: {
+	'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({ mail }),
+  });
+
+  if (!response.ok) {
+	throw new Error('Network response was not ok');
+  }
+  
+  const data = await response.json();
+ 
+  console.log(data);
+  
+	const fetchProducts = async () => {
+		const API_URL = 'http://localhost:8080';
+		try {
+		const response = await fetch(`${API_URL}/cart`, {
+			method: 'GET',
+			headers: {
+			'Content-Type': 'application/json',
+      },
+			});
+		
+			if (!response.ok) { 
+                throw new Error('Network response was not ok');
+			}
+		
+			const data = await response.json();
+			setCartProducts(data);
+  } catch (error) {
+			console.log(error);
+			console.error('There was a problem with the fetch operation:', error);
+  } 
+  
+};
+		
+	
+		fetchProducts();
+ 
+} catch (error) {
+  console.log(error);
+  console.error('There was a problem with the fetch operation:', error);
+} 
+
+
+
+
+
+
+};
     
   return (
     <div>
@@ -64,7 +125,7 @@ const Cart = () => {
 				</h2>
 				<div className="mt-50">
 					<button
-						onClick={() => dispatch(clearCart())}
+						onClick={clearCart}
 						className="btn-big font-bold text-xl"
 					>
 						Clear Cart
