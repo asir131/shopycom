@@ -11,6 +11,36 @@ const CartItem = ({ cartItem }) => {
     cart.forEach((item) =>totalAmount+=Number(item.quantity)*Number(item.new_price));
 	const [itemQuantity, setItemQuantity] = useState(Number(cartItem.quantity));
 	const dispatch = useDispatch();
+
+	const removeFromCart = async (cartitem) =>{
+		
+		try {
+		  const response = await fetch(`http://localhost:8080/cart/id`, {
+			method: 'DELETE',
+			headers: {
+			'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({cartitem}  ),
+		  });
+		  
+		  if (!response.ok) {
+			throw new Error('Network response was not ok');
+		  }
+		  
+		  const data = await response.json();
+		 
+		  console.log(data);
+		  
+			
+		 
+		} catch (error) {
+		  console.log(error);
+		  console.error('There was a problem with the fetch operation:', error);
+		} 
+		
+		
+	}
+	
 	return (
 		<div>
 			
@@ -82,10 +112,10 @@ const CartItem = ({ cartItem }) => {
 				</div>
 			</td>
 			<td className="flex">Total Price : $ {cartItem.new_price * cartItem.quantity}  <h3 onClick={() =>
-						dispatch(
 						
-						removeFromCart(cartItem.id)
-						)
+						
+						removeFromCart(cartItem)
+						
 					} className="ml-2 bg-red-700 px-4 rounded-full cursor-pointer">X</h3></td>
 			<td >
 			<figure>

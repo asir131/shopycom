@@ -95,6 +95,37 @@ try {
   console.error('There was a problem with the fetch operation:', error);
 } 
 
+// const reloadd =async ()=>{
+// 	try {
+//         const response = await fetch(`http://localhost:8080/cart`, {
+//           method: 'GET',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//         });
+    
+//         if (!response.ok) {
+//           throw new Error('Network response was not ok');
+//         }
+    
+//         const data = await response.json();
+//         setCartProducts(data);
+//         console.log(" data from data",data);
+        
+//     let cartItems= cartProducts.filter((item) => item.mail===mail);
+// 	cartItems.forEach((item) =>totalAmount=Number(totalAmount)+Number(item.quantity)*Number(item.new_price));
+      
+        
+
+        
+
+
+        
+//       } catch (error) {
+//         console.log(error);
+//         console.error('There was a problem with the fetch operation:', error);
+//       } 
+// }
 
 
 
